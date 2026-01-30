@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+
+# Node
+node_modules
+dist
+.vite
+.env
+.env.*
+
+# Java / Spring
+target
+*.class
+*.log
+.idea
+*.iml
+.settings
+.project
+.classpath
+
+# Editor
+.vscode
