@@ -19,26 +19,35 @@ public class ApiExceptionHandler {
         return headers;
     }
 
+    private static Map<String, Object> body(int status, String error, String message) {
+        return Map.of(
+                "timestamp", Instant.now().toString(),
+                "status", status,
+                "error", error,
+                "message", message);
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String, Object>> handleBadRequest(IllegalArgumentException ex) {
         return new ResponseEntity<>(
-                Map.of(
-                        "timestamp", Instant.now().toString(),
-                        "status", 400,
-                        "error", "Bad Request",
-                        "message", ex.getMessage()),
+                body(400, "Bad Request", ex.getMessage()),
                 jsonHeaders(),
                 HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DownstreamApiException.class)
+    public ResponseEntity<Map<String, Object>> handleDownstream(DownstreamApiException ex) {
+        return new ResponseEntity<>(
+                body(502, "Bad Gateway", ex.getMessage() == null ? "External API error" : ex.getMessage()),
+                jsonHeaders(),
+                HttpStatus.BAD_GATEWAY);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handle(Exception ex) {
         return new ResponseEntity<>(
-                Map.of(
-                        "timestamp", Instant.now().toString(),
-                        "status", 500,
-                        "error", "Internal Server Error",
-                        "message", ex.getMessage() == null ? "Unexpected server error" : ex.getMessage()),
+                body(500, "Internal Server Error",
+                        ex.getMessage() == null ? "Unexpected server error" : ex.getMessage()),
                 jsonHeaders(),
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
