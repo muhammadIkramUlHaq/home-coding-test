@@ -1,0 +1,86 @@
+import type { UsersWithPetQuery } from "../hooks/useUsersWithPet";
+
+const COUNTRY_OPTIONS = [
+  { label: "All Countries", value: "" },
+  { label: "AU", value: "AU" },
+  { label: "BR", value: "BR" },
+  { label: "CA", value: "CA" },
+  { label: "CH", value: "CH" },
+  { label: "DE", value: "DE" },
+  { label: "DK", value: "DK" },
+  { label: "ES", value: "ES" },
+  { label: "FI", value: "FI" },
+  { label: "FR", value: "FR" },
+  { label: "GB", value: "GB" },
+  { label: "IE", value: "IE" },
+  { label: "IN", value: "IN" },
+  { label: "IR", value: "IR" },
+  { label: "MX", value: "MX" },
+  { label: "NL", value: "NL" },
+  { label: "NO", value: "NO" },
+  { label: "NZ", value: "NZ" },
+  { label: "RS", value: "RS" },
+  { label: "TR", value: "TR" },
+  { label: "UA", value: "UA" },
+  { label: "US", value: "US" },
+];
+
+function clampInt(n: number, min: number, max: number) {
+  if (Number.isNaN(n)) return min;
+  return Math.max(min, Math.min(max, n));
+}
+
+export function UsersToolbar(props: {
+  query: UsersWithPetQuery;
+  onChange: (next: UsersWithPetQuery) => void;
+  onFetch: () => void;
+  loading: boolean;
+}) {
+  const { query, onChange, onFetch, loading } = props;
+
+  return (
+    <div className="usersToolbar">
+      <label className="usersToolbarField">
+        <span className="usersToolbarLabel">Filter by country (nat)</span>
+        <select
+          className="usersToolbarInput"
+          value={query.nat}
+          disabled={loading}
+          onChange={(e) => onChange({ ...query, nat: e.target.value })}
+        >
+          {COUNTRY_OPTIONS.map((c) => (
+            <option key={c.label} value={c.value}>
+              {c.label}
+            </option>
+          ))}
+        </select>
+      </label>
+
+      <label className="usersToolbarField">
+        <span className="usersToolbarLabel">Number of users (results)</span>
+        <input
+          className="usersToolbarInput"
+          type="number"
+          min={1}
+          max={200}
+          value={query.results}
+          disabled={loading}
+          onChange={(e) =>
+            onChange({
+              ...query,
+              results: clampInt(Number(e.target.value), 1, 200),
+            })
+          }
+        />
+      </label>
+
+      <button
+        className="usersToolbarButton"
+        onClick={onFetch}
+        disabled={loading}
+      >
+        {loading ? "Fetching..." : "Fetch Data"}
+      </button>
+    </div>
+  );
+}
