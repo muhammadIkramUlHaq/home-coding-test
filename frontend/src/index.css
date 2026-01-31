@@ -1,3 +1,61 @@
+/* ---------- Base ---------- */
+:root {
+  --bg: #f3f6fb;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --muted: rgba(15, 23, 42, 0.68);
+  --border: rgba(15, 23, 42, 0.12);
+  --shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+  --radius: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  color: var(--text);
+  background: var(--bg);
+}
+
+a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Page Layout ---------- */
+.page {
+  max-width: 1100px;
+  margin: 24px auto 40px;
+  padding: 0 16px;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+
+.headerTitle {
+  margin: 0;
+  font-size: 34px;
+  letter-spacing: -0.4px;
+}
+
+.headerSubtitle {
+  margin: 6px 0 0;
+  color: var(--muted);
+}
+
+/* ---------- Users Grid ---------- */
 .usersGrid {
   margin-top: 16px;
   display: grid;
@@ -5,8 +63,21 @@
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
-/* Toolbar */
+@media (min-width: 640px) {
+  .usersGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 980px) {
+  .usersGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Toolbar ---------- */
 .usersToolbar {
+  margin-top: 14px;
   display: grid;
   gap: 12px;
   align-items: end;
@@ -20,20 +91,35 @@
 
 .usersToolbarLabel {
   font-size: 12px;
-  opacity: 0.75;
+  color: var(--muted);
 }
 
 .usersToolbarInput {
-  height: 40px;
-  border-radius: 10px;
-  padding: 0 10px;
+  height: 42px;
+  border-radius: 12px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  background: white;
+  outline: none;
+}
+
+.usersToolbarInput:focus {
+  border-color: rgba(37, 99, 235, 0.5);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
 }
 
 .usersToolbarButton {
-  height: 40px;
-  border-radius: 10px;
-  font-weight: 600;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid rgba(37, 99, 235, 0.35);
+  background: rgba(37, 99, 235, 0.1);
+  font-weight: 700;
   cursor: pointer;
+}
+
+.usersToolbarButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 @media (max-width: 560px) {
@@ -47,15 +133,130 @@
   }
 }
 
+/* ---------- Card ---------- */
+.userCard {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
 
-@media (min-width: 640px) {
-  .usersGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+.userCardImageWrap {
+  aspect-ratio: 16 / 10;
+  background: #e8eef9;
+}
+
+.userCardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.userCardBody {
+  padding: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.userCardTopRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.userCardName {
+  margin: 0;
+  font-size: 18px;
+}
+
+.userCardPill {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.userCardInfoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.k {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.v {
+  font-size: 14px;
+  color: rgba(15, 23, 42, 0.92);
+}
+
+.userCardRow {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.userCardRowValue {
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Alerts / Empty ---------- */
+.alert {
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(185, 28, 28, 0.2);
+  background: rgba(185, 28, 28, 0.08);
+  color: rgba(122, 0, 0, 0.92);
+}
+
+.emptyState {
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  color: var(--muted);
+}
+
+/* ---------- Skeleton ---------- */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.6),
+      transparent);
+  animation: shimmer 1.1s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
   }
 }
 
-@media (min-width: 980px) {
-  .usersGrid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+.skelBox {
+  background: rgba(15, 23, 42, 0.08);
+  border-radius: 10px;
+}
+
+.skelLine {
+  height: 10px;
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.08);
 }

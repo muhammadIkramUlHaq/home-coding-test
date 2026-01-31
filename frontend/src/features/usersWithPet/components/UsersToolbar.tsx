@@ -1,4 +1,4 @@
-import type { UsersWithPetQuery } from "../hooks/useUsersWithPet";
+import type { UsersWithPetQuery } from "#/features/usersWithPet/hooks/useUsersWithPet";
 
 const COUNTRY_OPTIONS = [
   { label: "All Countries", value: "" },
@@ -46,11 +46,11 @@ export function UsersToolbar(props: {
           className="usersToolbarInput"
           value={query.nat}
           disabled={loading}
-          onChange={(e) => onChange({ ...query, nat: e.target.value })}
+          onChange={(event) => onChange({ ...query, nat: event.target.value })}
         >
-          {COUNTRY_OPTIONS.map((c) => (
-            <option key={c.label} value={c.value}>
-              {c.label}
+          {COUNTRY_OPTIONS.map((country) => (
+            <option key={country.label} value={country.value}>
+              {country.label}
             </option>
           ))}
         </select>
@@ -65,10 +65,10 @@ export function UsersToolbar(props: {
           max={200}
           value={query.results}
           disabled={loading}
-          onChange={(e) =>
+          onChange={(event) =>
             onChange({
               ...query,
-              results: clampInt(Number(e.target.value), 1, 200),
+              results: clampInt(Number(event.target.value), 1, 200),
             })
           }
         />

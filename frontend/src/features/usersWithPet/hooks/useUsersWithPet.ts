@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
-import { getUsersWithPet } from "../../../api/usersWithPet/usersWithPet.api";
-import type { UserWithPet } from "../../../api/usersWithPet/usersWithPet.types";
-import { getErrorMessage } from "../../../lib";
+import { getUsersWithPet } from "#/api/usersWithPet/usersWithPet.api";
+import type { UserWithPet } from "#/api/usersWithPet/usersWithPet.types";
+import { getErrorMessage } from "#/lib";
 
 export type UsersWithPetQuery = {
   results: number;
