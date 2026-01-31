@@ -16,10 +16,13 @@ export function useUsersWithPet(
   const [data, setData] = useState<UserWithPet[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [hasFetched, setHasFetched] = useState(false);
 
   const fetchUsers = useCallback(async () => {
+    setHasFetched(true);
     setError("");
     setLoading(true);
+
     try {
       const res = await getUsersWithPet({
         results: query.results,
@@ -41,6 +44,7 @@ export function useUsersWithPet(
     data,
     loading,
     error,
+    hasFetched,
     fetchUsers,
   };
 }

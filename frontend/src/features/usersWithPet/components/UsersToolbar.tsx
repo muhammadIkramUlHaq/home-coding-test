@@ -35,13 +35,15 @@ export function UsersToolbar(props: {
   onChange: (next: UsersWithPetQuery) => void;
   onFetch: () => void;
   loading: boolean;
+  hasFetched: boolean;
+  resultsCount: number;
 }) {
-  const { query, onChange, onFetch, loading } = props;
+  const { query, onChange, onFetch, loading, hasFetched, resultsCount } = props;
 
   return (
     <div className="usersToolbar">
       <label className="usersToolbarField">
-        <span className="usersToolbarLabel">Filter by country (nat)</span>
+        <span className="usersToolbarLabel">Filter by country</span>
         <select
           className="usersToolbarInput"
           value={query.nat}
@@ -57,7 +59,7 @@ export function UsersToolbar(props: {
       </label>
 
       <label className="usersToolbarField">
-        <span className="usersToolbarLabel">Number of users (results)</span>
+        <span className="usersToolbarLabel">Number of users</span>
         <input
           className="usersToolbarInput"
           type="number"
@@ -74,13 +76,21 @@ export function UsersToolbar(props: {
         />
       </label>
 
-      <button
-        className="usersToolbarButton"
-        onClick={onFetch}
-        disabled={loading}
-      >
-        {loading ? "Fetching..." : "Fetch Data"}
-      </button>
+      <div className="usersToolbarActions">
+        <button
+          className="usersToolbarButton"
+          onClick={onFetch}
+          disabled={loading}
+        >
+          {loading ? "Fetching..." : "Fetch Data"}
+        </button>
+
+        {hasFetched && !loading ? (
+          <div className="usersToolbarMeta">
+            Showing <b>{resultsCount}</b> user{resultsCount === 1 ? "" : "s"}
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }

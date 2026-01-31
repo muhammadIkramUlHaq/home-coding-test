@@ -1,4 +1,4 @@
-import { apiClient } from "../../lib";
+import { apiClient } from "#/lib";
 import type { GetUsersWithPetParams, UserWithPet } from "./usersWithPet.types";
 
 export async function getUsersWithPet(params: GetUsersWithPetParams) {
