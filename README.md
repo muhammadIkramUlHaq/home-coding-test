@@ -24,10 +24,12 @@ home-coding-test
 
 Install before running:
 
-- Java 17+
+- Java 21 (backend is built with Java 21)
 - Maven (`mvn`)
 - Node.js 18+
 - pnpm (`npm install -g pnpm`)
+- Docker + Docker Compose (optional bonus)
+   - macOS/Windows: make sure Docker Desktop is running
 
 ---
 
@@ -84,6 +86,31 @@ Frontend runs on:
 http://localhost:5173
 ```
 
+##  Docker (Bonus)
+Start full app (frontend + backend) with a single command:
+
+Open the terminal and navigate to root of repo and run:
+
+```bash
+docker compose up --build
+```
+
+Frontend:
+
+```bash
+http://localhost:5173
+```
+
+backend:
+
+```bash
+http://localhost:8080
+```
+
+> **Note:**  Docker must be running. On macOS/Windows, start Docker Desktop first.
+
+---
+
 
 # Running Tests
 
@@ -120,6 +147,8 @@ This will:
 - run Playwright tests
 
 - shut down servers automatically
+
+---
 
 # Useful Commands
 
