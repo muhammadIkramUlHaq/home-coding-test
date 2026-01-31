@@ -1,6 +1,8 @@
 package dev.mikram.homeassignment.common.error;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -11,23 +13,33 @@ import java.util.Map;
 @RestControllerAdvice
 public class ApiExceptionHandler {
 
+    private static HttpHeaders jsonHeaders() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return headers;
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String, Object>> handleBadRequest(IllegalArgumentException ex) {
-        return ResponseEntity.badRequest().body(
+        return new ResponseEntity<>(
                 Map.of(
                         "timestamp", Instant.now().toString(),
                         "status", 400,
                         "error", "Bad Request",
-                        "message", ex.getMessage()));
+                        "message", ex.getMessage()),
+                jsonHeaders(),
+                HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handle(Exception ex) {
-        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(
+        return new ResponseEntity<>(
                 Map.of(
                         "timestamp", Instant.now().toString(),
-                        "status", 502,
-                        "error", "Bad Gateway",
-                        "message", ex.getMessage() == null ? "External API error" : ex.getMessage()));
+                        "status", 500,
+                        "error", "Internal Server Error",
+                        "message", ex.getMessage() == null ? "Unexpected server error" : ex.getMessage()),
+                jsonHeaders(),
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

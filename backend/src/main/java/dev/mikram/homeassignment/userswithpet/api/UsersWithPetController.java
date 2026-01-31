@@ -2,13 +2,13 @@ package dev.mikram.homeassignment.userswithpet.api;
 
 import dev.mikram.homeassignment.userswithpet.dto.UserWithPetDto;
 import dev.mikram.homeassignment.userswithpet.service.UsersWithPetService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/api/users-with-pet", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UsersWithPetController {
 
     private final UsersWithPetService service;
@@ -17,12 +17,11 @@ public class UsersWithPetController {
         this.service = service;
     }
 
-    @GetMapping("/api/users-with-pet")
+    @GetMapping
     public List<UserWithPetDto> usersWithPet(
             @RequestParam(defaultValue = "10") int results,
             @RequestParam(required = false) String nat,
             @RequestParam(required = false) String seed) {
-
         return service.getUsersWithPet(results, nat, seed);
     }
 }
