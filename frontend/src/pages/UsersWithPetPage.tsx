@@ -30,6 +30,7 @@ export default function UsersWithPetPage() {
           loading={loading}
           hasFetched={hasFetched}
           resultsCount={data.length}
+          error={error}
         />
 
         {error ? (
