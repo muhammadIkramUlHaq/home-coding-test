@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "concurrently -k -s first -n BACKEND,FRONTEND \"pnpm dev:backend\" \"pnpm dev:frontend\"",
     "dev:frontend": "pnpm --dir frontend dev",
     "dev:backend": "cd backend && mvn spring-boot:run",
     "e2e:wait": "wait-on http://localhost:5173 http://localhost:8080/api/health",
