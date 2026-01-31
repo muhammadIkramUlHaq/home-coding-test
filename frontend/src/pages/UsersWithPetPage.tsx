@@ -2,6 +2,7 @@ import { useUsersWithPet } from "#/features/usersWithPet/hooks/useUsersWithPet";
 import { UsersToolbar } from "#/features/usersWithPet/components/UsersToolbar";
 import { UsersGrid } from "#/features/usersWithPet/components/UsersGrid";
 import { UsersSkeletonGrid } from "#/features/usersWithPet/components/UsersSkeletonGrid";
+import { PetIcon } from "#/features/usersWithPet/components/PetIcon";
 
 export default function UsersWithPetPage() {
   const { query, setQuery, data, loading, error, hasFetched, fetchUsers } =
@@ -13,7 +14,10 @@ export default function UsersWithPetPage() {
   return (
     <div className="page">
       <div className="panel">
-        <h1 className="headerTitle">Users & Their Pets</h1>
+        <div className="headerRow">
+          <PetIcon className="titleIcon" />
+          <h1 className="headerTitle">Users & Their Pets</h1>
+        </div>
         <p className="headerSubtitle">
           Browse users from different countries and meet their random dog
           companions.

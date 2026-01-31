@@ -45,6 +45,20 @@ a:hover {
   padding: 18px;
 }
 
+.headerRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.titleIcon {
+  color: #111;
+  /* black icon */
+  flex: 0 0 auto;
+  transform: translateY(2px);
+  /* tiny baseline tweak */
+}
+
 .headerTitle {
   margin: 0;
   font-size: 34px;
