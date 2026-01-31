@@ -1,0 +1,21 @@
+{
+  "name": "home-coding-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:frontend": "pnpm --dir frontend dev",
+    "dev:backend": "cd backend && mvn spring-boot:run",
+    "e2e:wait": "wait-on http://localhost:5173 http://localhost:8080/api/health",
+    "e2e:run": "pnpm e2e:wait && pnpm --dir frontend test:e2e",
+    "test:e2e": "concurrently -k -s first -n BACKEND,FRONTEND \"pnpm dev:backend\" \"pnpm dev:frontend\" \"pnpm e2e:run\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.14.0",
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "wait-on": "^9.0.3"
+  }
+}

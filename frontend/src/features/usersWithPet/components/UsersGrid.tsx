@@ -3,7 +3,7 @@ import { UserCard } from "./UserCard";
 
 export function UsersGrid({ users }: { users: UserWithPet[] }) {
   return (
-    <div className="usersGrid">
+    <div data-testid="users-grid" className="usersGrid">
       {users.map((user) => (
         <UserCard key={user.email} user={user} />
       ))}

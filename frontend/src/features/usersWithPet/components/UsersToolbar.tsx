@@ -48,6 +48,7 @@ export function UsersToolbar(props: {
           className="usersToolbarInput"
           value={query.nat}
           disabled={loading}
+          data-testid="country-select"
           onChange={(event) => onChange({ ...query, nat: event.target.value })}
         >
           {COUNTRY_OPTIONS.map((country) => (
@@ -62,6 +63,7 @@ export function UsersToolbar(props: {
         <span className="usersToolbarLabel">Number of users</span>
         <input
           className="usersToolbarInput"
+          data-testid="results-input"
           type="number"
           min={1}
           max={200}
@@ -79,6 +81,7 @@ export function UsersToolbar(props: {
       <div className="usersToolbarActions">
         <button
           className="usersToolbarButton"
+          data-testid="fetch-button"
           onClick={onFetch}
           disabled={loading}
         >
@@ -86,7 +89,7 @@ export function UsersToolbar(props: {
         </button>
 
         {hasFetched && !loading ? (
-          <div className="usersToolbarMeta">
+          <div className="usersToolbarMeta" data-testid="results-meta">
             Showing <b>{resultsCount}</b> user{resultsCount === 1 ? "" : "s"}
           </div>
         ) : null}

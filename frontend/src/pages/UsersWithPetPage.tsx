@@ -29,7 +29,7 @@ export default function UsersWithPetPage() {
         />
 
         {error ? (
-          <div className="alert">
+          <div data-testid="error-alert" className="alert">
             <b>Error:</b> {error}
           </div>
         ) : null}

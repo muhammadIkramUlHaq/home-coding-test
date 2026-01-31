@@ -6,7 +6,7 @@ export function UserCard({ user }: { user: UserWithPet }) {
     : "";
 
   return (
-    <article className="userCard">
+    <article data-testid="user-card" className="userCard">
       <div className="userCardImageWrap">
         <img
           className="userCardImage"
@@ -23,7 +23,9 @@ export function UserCard({ user }: { user: UserWithPet }) {
       <div className="userCardBody">
         <div className="userCardTopRow">
           <h3 className="userCardName">{user.name}</h3>
-          <span className="userCardPill">{user.country}</span>
+          <span data-testid="country-pill" className="userCardPill">
+            {user.country}
+          </span>
         </div>
 
         <div className="userCardInfoGrid">
